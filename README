@@ -1,0 +1,48 @@
+Tema realizata de Anca Millio, 325CA.
+
+Pentru rezolvarea temei am organizat codul in felul urmator:
+
+La label-urile taskID am stabilit adresele sirurilor care trebuie date ca
+paramtrii, am apelat functia corespunzatoare fiecarui task, apoi am afisat
+rezultatele.
+
+In functia corespunzatoare fiecarui task am realizat procesul propriu-zis de
+decriptare, dupa cum urmeaza:
+
+1. xor_strings:
+
+Am citit in paralel cate un octet din cheie si din sir, apoi am fact xor intre
+acestea si am pus in final rezultatul in sirul initial.
+
+2. rolling_xor:
+
+Am facut xor intre doi octeti consecutivi din sir. Inainte de a pune rezultatul
+in sir, am preluat vechea valoarea a octetului ce urmeaza a fi suprascris,
+pentru a fi folosita la urmatorul xor.
+
+3. xor_hex_strings:
+
+Am citit cate doi octeti consecutivi pentru a-i transforma intr-un singur octet,
+ce contine un numar hexa, pe care l-am pus apoi inapoi in sir, suprascriind
+octetii care deja au fost prelucrati. Dupa transformarea cheii si sirului in
+acest mod, am reparcurs valorile in hexa din cele doua siruri si am facut xor
+exact ca la xor_strings.
+
+5. bruteforce_singlebyte_xor:
+
+Am atribuit pe rand cheii valori de la 00000000 la 11111111. Am incrementat
+de fiecare data cu 1, daca sirul a fost parcurs in totalitate, fara a fi gasita
+secventa "force" in urma procedurii de xor intre cheie si octetul curent din
+sir. Cand secventa "force" a fost gasita, deci cheia a fost gasita, am reparcurs
+sirul pentru a face xor cu cheia corecta si a pune rezultatul final inapoi
+in sir.
+
+6. decode_vigenere:
+
+Am aflat intai lungimea cheii, pentru a sti dupa cate litere citite din sir,
+repet cheia(adica mut la inceputul cheii indexul care arata ce litera din cheie
+imi indica shift-area necesara pentru litera curenta din sirul criptat).
+Daca citesc din sir un caracter care nu este litera, trec la citirea urmatorului
+caracter, fara a muta indexul din cheie. Daca este litera, transform litera
+corespunzatoare din cheie, in numar, apoi fac shift-area circulara(am grija sa
+nu depasesc intervalul literelor) si in final pun rezultatul in sirul initial.
